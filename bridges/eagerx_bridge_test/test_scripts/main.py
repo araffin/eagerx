@@ -20,7 +20,7 @@ if __name__ == '__main__':
     # Process configuration (optional)
     node_p = process.ENVIRONMENT
     bridge_p = process.ENVIRONMENT
-    rate = 7
+    rate = 20
 
     # Define nodes
     N1 = RxNode.create('N1', 'eagerx_bridge_test', 'process',   rate=1.0, process=node_p)
@@ -113,7 +113,7 @@ if __name__ == '__main__':
     # TEST Test with KF having skipped all inputs at t=0
     graph.remove_component(KF.name, 'inputs', 'in_1')
 
-    # graph.gui()
+    graph.gui()
 
     # Test save & load functionality
     graph.save('./test.graph')
@@ -138,7 +138,7 @@ if __name__ == '__main__':
     env.render(mode='human')
     for j in range(20000):
         print('\n[Episode %s]' % j)
-        for i in range(20):
+        for i in range(200):
             action = env.action_space.sample()
             obs, reward, done, info = env.step(action)
             # rgb = env.render(mode='rgb_array')

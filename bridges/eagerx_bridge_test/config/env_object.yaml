@@ -1,0 +1,87 @@
+default:
+  sensors: [observation, reward, done, image]
+  actuators: [action]
+  gym_id: 'Pendulum-v1'
+  rate: 20
+  always_render: False
+  zero_action: 'not_defined'
+
+#########################
+## Agnostic definition ##
+#########################
+sensors: # inputs of env
+  observation:
+    rate: $(default rate)
+    msg_type: std_msgs.msg/UInt64
+    space_converter:
+      converter_type: eagerx_bridge_test.converters/Space_RosUInt64
+      dtype: uint64
+      low: [0]
+      high: [100]
+  reward:
+    rate: $(default rate)
+    msg_type: std_msgs.msg/UInt64
+    space_converter:
+      converter_type: eagerx_bridge_test.converters/Space_RosUInt64
+      dtype: uint64
+      low: [0]
+      high: [100]
+  done:
+    rate: $(default rate)
+    msg_type: std_msgs.msg/UInt64
+    space_converter:
+      converter_type: eagerx_bridge_test.converters/Space_RosUInt64
+      dtype: uint64
+      low: [0]
+      high: [100]
+  image:
+    rate: $(default rate)
+    msg_type: std_msgs.msg/UInt64
+    space_converter:
+      converter_type: eagerx_bridge_test.converters/Space_RosUInt64
+      dtype: uint64
+      low: [0]
+      high: [100]
+
+actuators: # outputs of env
+  action:
+    rate: $(default rate)
+    msg_type: std_msgs.msg/UInt64
+    space_converter:
+      converter_type: eagerx_bridge_test.converters/Space_RosUInt64
+      dtype: uint64
+      low: [0]
+      high: [100]
+
+#########################
+### Engine definition ###
+#########################
+eagerx_bridge_test/bridge:
+  sensors:
+    observation:
+      node_config: eagerx_bridge_test/sim_sensor # These nodes cannot have an internal state
+      outputs: [out_1]
+      color: cyan
+      process: 2  # {0: NEW_PROCESS, 1: ENVIRONMENT, 2: BRIDGE, 3: EXTERNAL}
+    reward:
+      node_config: eagerx_bridge_test/sim_sensor # These nodes cannot have an internal state
+      outputs: [out_1]
+      color: cyan
+      process: 2  # {0: NEW_PROCESS, 1: ENVIRONMENT, 2: BRIDGE, 3: EXTERNAL}
+    done:
+      node_config: eagerx_bridge_test/sim_sensor # These nodes cannot have an internal state
+      outputs: [out_1]
+      color: cyan
+      process: 2  # {0: NEW_PROCESS, 1: ENVIRONMENT, 2: BRIDGE, 3: EXTERNAL}
+    image:
+      node_config: eagerx_bridge_test/sim_sensor # These nodes cannot have an internal state
+      outputs: [out_1]
+      color: cyan
+      process: 2
+
+  actuators:  # Inputs as defined above
+    action:
+      node_config: eagerx_bridge_test/sim_actuator
+      inputs: {in_1: } # actuator input mapping to sim_node input name inside node_config
+      color: green
+      process: 2  # {0: NEW_PROCESS, 1: ENVIRONMENT, 2: BRIDGE, 3: EXTERNAL}

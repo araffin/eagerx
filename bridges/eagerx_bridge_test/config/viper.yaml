@@ -14,7 +14,7 @@ default:
 #########################
 sensors: # inputs of env
   N6:
-    rate: 15
+    rate: 20
     msg_type: std_msgs.msg/UInt64
     space_converter:
       converter_type: eagerx_bridge_test.converters/Space_RosUInt64
@@ -32,7 +32,7 @@ sensors: # inputs of env
 
 actuators: # outputs of env
   N8:
-    rate: 15
+    rate: 20
     msg_type: std_msgs.msg/String
     space_converter:
       converter_type: eagerx_bridge_test.converters/Space_RosString
