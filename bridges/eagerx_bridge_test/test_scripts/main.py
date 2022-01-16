@@ -18,8 +18,8 @@ if __name__ == '__main__':
     RosImage_RosUInt64 = RosImage_RosUInt64(test_arg='test')
 
     # Process configuration (optional)
-    node_p = process.ENVIRONMENT
-    bridge_p = process.ENVIRONMENT
+    node_p = process.NEW_PROCESS
+    bridge_p = process.NEW_PROCESS
     rate = 20
 
     # Define nodes
@@ -113,7 +113,7 @@ if __name__ == '__main__':
     # TEST Test with KF having skipped all inputs at t=0
     graph.remove_component(KF.name, 'inputs', 'in_1')
 
-    graph.gui()
+    # graph.gui()
 
     # Test save & load functionality
     graph.save('./test.graph')
@@ -138,7 +138,7 @@ if __name__ == '__main__':
     env.render(mode='human')
     for j in range(20000):
         print('\n[Episode %s]' % j)
-        for i in range(200):
+        for i in range(20):
             action = env.action_space.sample()
             obs, reward, done, info = env.step(action)
             # rgb = env.render(mode='rgb_array')
